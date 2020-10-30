@@ -1,0 +1,30 @@
+unit Utypepeople;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Data.DB, Vcl.StdCtrls,
+  IBX.IBCustomDataSet, Vcl.Grids, Vcl.DBGrids;
+
+type
+  TForm18 = class(TForm)
+    DBGrid1: TDBGrid;
+    IBDataSet1: TIBDataSet;
+    DataSource1: TDataSource;
+    Button1: TButton;
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  Form18: TForm18;
+
+implementation
+ uses Umain,Utypepoeplechange;
+
+{$R *.dfm}
+
+end.

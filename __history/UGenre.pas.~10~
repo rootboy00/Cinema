@@ -1,0 +1,56 @@
+unit UGenre;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Data.DB, IBX.IBTable,
+  IBX.IBCustomDataSet, Vcl.Grids, Vcl.DBGrids, Vcl.StdCtrls;
+
+type
+  TForm4 = class(TForm)
+    DBGrid1: TDBGrid;
+    DataSource1: TDataSource;
+    IBDataSet1: TIBDataSet;
+    Button1: TButton;
+    procedure FormShow(Sender: TObject);
+    procedure Button1Click(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+    procedure Refreshing;
+  end;
+
+var
+  Form4: TForm4;
+
+implementation
+ uses Umain,UGenreChange;
+{$R *.dfm}
+
+procedure Tform4.Refreshing;
+begin
+ibdataset1.Active:= false;
+ibdataset1.Active:= true;
+dbgrid1.Fields[0].Visible:= false;
+end;
+
+
+
+
+procedure TForm4.Button1Click(Sender: TObject);
+begin
+UGenreChange.Texttype:= 0;
+UGenreChange.Form5.Show;
+
+end;
+
+procedure TForm4.FormShow(Sender: TObject);
+begin
+Refreshing;
+end;
+
+
+
+end.

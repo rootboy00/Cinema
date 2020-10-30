@@ -1,0 +1,36 @@
+unit UFilm;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Data.DB, IBX.IBCustomDataSet, Vcl.Grids,
+  Vcl.DBGrids, IBX.IBQuery, Vcl.ExtCtrls, Vcl.StdCtrls;
+
+type
+  TForm6 = class(TForm)
+    DBGrid1: TDBGrid;
+    IBDataSet1: TIBDataSet;
+    DataSource1: TDataSource;
+    Button1: TButton;
+    Image1: TImage;
+    procedure Button1Click(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  Form6: TForm6;
+
+implementation
+ uses UMain,UFilmChange;
+{$R *.dfm}
+
+procedure TForm6.Button1Click(Sender: TObject);
+begin
+  Ufilmchange.Form7.Show;
+end;
+
+end.

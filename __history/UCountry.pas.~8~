@@ -1,0 +1,77 @@
+unit UCountry;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Data.DB, IBX.IBCustomDataSet, Vcl.Grids,
+  Vcl.DBGrids, Vcl.StdCtrls, IBX.IBTable, IBX.IBQuery;
+
+type
+  TForm2 = class(TForm)
+    Edit1: TEdit;
+    DBGrid1: TDBGrid;
+    DataSource1: TDataSource;
+    IBDataSet1: TIBDataSet;
+    IBTable1: TIBTable;
+    Button1: TButton;
+    IBQuery1: TIBQuery;
+    procedure Button1Click(Sender: TObject);
+    procedure FormShow(Sender: TObject);
+
+  private
+    function RefreshDB();
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  Form2: TForm2;
+
+implementation
+ uses UMain;
+{$R *.dfm}
+
+procedure TForm2.Button1Click(Sender: TObject);
+begin
+
+
+if(edit1.text <> '') then
+begin
+ibquery1.SQL.Clear;
+ibquery1.SQL.Add('select count(*) from country where name = :name');
+ibquery1.ParamByName('name').AsString:= edit1.Text;
+ibquery1.open;
+if(ibquery1.Fields[0].asinteger > 0) then
+begin
+  showmessage('Извини, но ' + edit1.text +' уже есть в базе данных');
+end else
+begin
+  ibquery1.SQL.Clear;
+  ibquery1.SQL.Add('INSERT INTO COUNTRY(Name) values (:name) ');
+  ibquery1.ParamByName('name').AsString:= edit1.Text;
+  ibquery1.ExecSQL;
+  showmessage('Новая страна ' + edit1.text + ' была успешно добавлена!');
+
+end;
+
+end;
+
+function refreshdb;
+begin
+  ibdataset1.Active:= false;
+  ibdataset1.Active:= true;
+end;
+
+
+end;
+
+procedure TForm2.FormShow(Sender: TObject);
+begin
+ refreshDB;
+end;
+
+
+
+end.

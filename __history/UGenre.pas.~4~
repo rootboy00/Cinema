@@ -1,0 +1,40 @@
+unit UGenre;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Data.DB, IBX.IBTable,
+  IBX.IBCustomDataSet, Vcl.Grids, Vcl.DBGrids, Vcl.StdCtrls;
+
+type
+  TForm4 = class(TForm)
+    DBGrid1: TDBGrid;
+    DataSource1: TDataSource;
+    IBDataSet1: TIBDataSet;
+    Button1: TButton;
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+    procedure Refreshing;
+  end;
+
+var
+  Form4: TForm4;
+
+implementation
+ uses Umain;
+{$R *.dfm}
+
+
+procedure Tform4.Refreshing;
+begin
+ibdataset1.Active:= false;
+ibdataset1.Active:= true;
+dbgrid1.Fields[0].Visible:= false;
+end;
+
+
+
+end.

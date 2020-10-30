@@ -1,0 +1,20 @@
+program Project1;
+
+uses
+  Vcl.Forms,
+  UMain in 'UMain.pas' {Form1},
+  UCountry in 'UCountry.pas' {Form2},
+  UCountryChange in 'UCountryChange.pas' {Form3},
+  UGenre in 'UGenre.pas' {Form4};
+
+{$R *.res}
+
+begin
+  Application.Initialize;
+  Application.MainFormOnTaskbar := True;
+  Application.CreateForm(TForm1, Form1);
+  Application.CreateForm(TForm2, Form2);
+  Application.CreateForm(TForm3, Form3);
+  Application.CreateForm(TForm4, Form4);
+  Application.Run;
+end.
