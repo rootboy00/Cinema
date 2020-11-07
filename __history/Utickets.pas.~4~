@@ -1,0 +1,29 @@
+unit Utickets;
+
+interface
+
+uses
+  Windows, Messages, SysUtils, Variants,
+  Classes, Graphics,
+  Controls, Forms, Dialogs, DB, StdCtrls, Grids, DBGrids, IBCustomDataSet;
+
+type
+  TForm16 = class(TForm)
+    DBGrid1: TDBGrid;
+    Button1: TButton;
+    DataSource1: TDataSource;
+    IBDataSet1: TIBDataSet;
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  Form16: TForm16;
+
+implementation
+
+{$R *.dfm}
+
+end.

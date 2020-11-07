@@ -1,0 +1,38 @@
+unit Uworkspeople;
+
+interface
+
+uses
+  Windows, Messages, SysUtils, Variants,
+  Classes, Graphics,
+  Controls, Forms, Dialogs, Data.DB, Vcl.StdCtrls, Vcl.Grids, Vcl.DBGrids;
+
+type
+  TForm20 = class(TForm)
+    DBGrid1: TDBGrid;
+    Button1: TButton;
+    procedure Button1Click(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  Form20: TForm20;
+
+implementation
+
+{$R *.dfm}
+
+
+
+
+
+
+procedure TForm20.Button1Click(Sender: TObject);
+begin
+ //agasg
+end;
+
+end.

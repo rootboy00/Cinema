@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+	<Transactions>
+    <Transaction>1899.12.30 00:00:00.000.956,X:\Delphi\HomeWork-main\Uplacechange.dfm=X:\Delphi\HomeWork-main\Uplaceshow.dfm</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.956,X:\Delphi\HomeWork-main\Uplacechange.pas=X:\Delphi\HomeWork-main\Uplaceshow.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.pas,D:\4ПР12\Komissarov\HomeWork-main\UFilmChange.pas=</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.dfm,D:\4ПР12\Komissarov\HomeWork-main\UFilmChange.dfm=</Transaction>
+    <Transaction>2020.11.07 04:40:41.713,=X:\Delphi\HomeWork-main\Unit12.pas</Transaction>
+    <Transaction>2020.11.07 04:40:54.657,X:\Delphi\HomeWork-main\Uplacechange.dfm=X:\Delphi\HomeWork-main\Unit12.dfm</Transaction>
+    <Transaction>2020.11.07 04:40:54.657,X:\Delphi\HomeWork-main\Uplacechange.pas=X:\Delphi\HomeWork-main\Unit12.pas</Transaction>
+  </Transactions>
+</BorlandProject>

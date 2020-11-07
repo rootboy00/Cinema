@@ -1,0 +1,34 @@
+unit Uticketschange;
+
+interface
+
+uses
+  Windows, Messages, SysUtils, Variants,
+  Classes, Graphics,
+  Controls, Forms, Dialogs, Vcl.DBCtrls;
+
+type
+  TForm17 = class(TForm)
+    DBLookupComboBox1: TDBLookupComboBox;
+    procedure FormShow(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  Form17: TForm17;
+  TicketID:integer;
+implementation
+
+{$R *.dfm}
+
+procedure TForm17.FormShow(Sender: TObject);
+begin
+//abab
+
+
+end;
+
+end.
