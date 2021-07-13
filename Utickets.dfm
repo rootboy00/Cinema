@@ -2,8 +2,8 @@ object Form16: TForm16
   Left = 0
   Top = 0
   Caption = 'Ticketks'
-  ClientHeight = 299
-  ClientWidth = 635
+  ClientHeight = 289
+  ClientWidth = 565
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -12,14 +12,19 @@ object Form16: TForm16
   Font.Style = []
   OldCreateOrder = False
   Position = poScreenCenter
+  OnResize = FormResize
   OnShow = FormShow
+  DesignSize = (
+    565
+    289)
   PixelsPerInch = 96
   TextHeight = 13
   object DBGrid1: TDBGrid
     Left = 16
     Top = 8
-    Width = 521
-    Height = 225
+    Width = 537
+    Height = 271
+    Anchors = [akLeft, akTop, akRight, akBottom]
     DataSource = DataSource1
     TabOrder = 0
     TitleFont.Charset = DEFAULT_CHARSET
@@ -65,18 +70,9 @@ object Form16: TForm16
         Visible = True
       end>
   end
-  object Button1: TButton
-    Left = 16
-    Top = 256
-    Width = 75
-    Height = 25
-    Caption = #1044#1086#1073#1072#1074#1080#1090#1100
-    TabOrder = 1
-    OnClick = Button1Click
-  end
   object DataSource1: TDataSource
     DataSet = IBDataSet1
-    Left = 248
+    Left = 256
     Top = 240
   end
   object IBDataSet1: TIBDataSet
@@ -92,6 +88,7 @@ object Form16: TForm16
       'inner join  place as p on (p.plid = t.plid)')
     ParamCheck = True
     UniDirectional = False
+    Active = True
     Left = 192
     Top = 240
   end

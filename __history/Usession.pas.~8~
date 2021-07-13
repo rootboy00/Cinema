@@ -1,0 +1,43 @@
+unit Usession;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Data.DB, IBX.IBCustomDataSet, Vcl.Grids,
+  Vcl.DBGrids, Vcl.StdCtrls;
+
+type
+  TForm14 = class(TForm)
+    DBGrid1: TDBGrid;
+    IBDataSet1: TIBDataSet;
+    DataSource1: TDataSource;
+    Button1: TButton;
+    procedure Button1Click(Sender: TObject);
+    procedure DBGrid1CellClick(Column: TColumn);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  Form14: TForm14;
+
+implementation
+ uses umain,UsessionChange;
+{$R *.dfm}
+
+procedure TForm14.Button1Click(Sender: TObject);
+begin
+UsessionChange.SessionID:= 0;
+UsessionChange.Form15.Show;
+end;
+
+procedure TForm14.DBGrid1CellClick(Column: TColumn);
+begin
+UsessionChange.SessionID:= dbgrid1.Fields[0].AsInteger;
+UsessionChange.Form15.Show;
+end;
+
+end.

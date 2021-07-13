@@ -3,7 +3,7 @@ object Form15: TForm15
   Top = 0
   Caption = 'Session Change'
   ClientHeight = 376
-  ClientWidth = 291
+  ClientWidth = 327
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -32,7 +32,7 @@ object Form15: TForm15
     Left = 40
     Top = 20
     Width = 108
-    Height = 21
+    Height = 19
     Caption = #1042#1099#1073#1077#1088#1080' '#1060#1080#1083#1100#1084
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clWindowText
@@ -106,6 +106,7 @@ object Form15: TForm15
     Height = 25
     Caption = 'Button2'
     TabOrder = 2
+    OnClick = Button2Click
   end
   object DBLookupComboBox2: TDBLookupComboBox
     Left = 40
@@ -135,14 +136,15 @@ object Form15: TForm15
     Time = 0.043090277780720500
     TabOrder = 5
   end
-  object Edit2: TEdit
+  object MaskEdit1: TMaskEdit
     Left = 40
-    Top = 160
+    Top = 159
     Width = 209
     Height = 21
+    EditMask = '!90:00;1;_'
+    MaxLength = 5
     TabOrder = 6
-    Text = 'Edit2'
-    OnExit = Edit2Exit
+    Text = '  :  '
   end
   object IBQuery1: TIBQuery
     Database = Form1.IBDatabase1
@@ -270,5 +272,19 @@ object Form15: TForm15
     DataSet = IBTable2
     Left = 264
     Top = 272
+  end
+  object DataSource3: TDataSource
+    DataSet = IBQuery2
+    Left = 696
+    Top = 208
+  end
+  object IBQuery2: TIBQuery
+    Database = Form1.IBDatabase1
+    Transaction = Form1.IBTransaction1
+    BufferChunks = 1000
+    CachedUpdates = False
+    ParamCheck = True
+    Left = 696
+    Top = 168
   end
 end

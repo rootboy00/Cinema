@@ -43,6 +43,7 @@ object Form17: TForm17
     Top = 61
     Width = 145
     Height = 21
+    ItemHeight = 13
     TabOrder = 1
   end
   object DataSource1: TDataSource
@@ -52,8 +53,6 @@ object Form17: TForm17
   object IBDataSet1: TIBDataSet
     Database = Form1.IBDatabase1
     Transaction = Form1.IBTransaction1
-    BufferChunks = 1000
-    CachedUpdates = False
     SelectSQL.Strings = (
       
         'select TID,F.NAME || '#39' '#39' || H.NAME || '#39' '#39' || S.STIME || '#39' '#39' || S' +
@@ -62,7 +61,5 @@ object Form17: TForm17
       'inner join session as s on (s.sid = t.sid)'
       'inner join film as f on (f.fid = s.fid)'
       'inner join hall as h on (h.hid = s.hid)')
-    ParamCheck = True
-    UniDirectional = False
   end
 end

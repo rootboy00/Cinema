@@ -16,6 +16,7 @@ type
     procedure Button1Click(Sender: TObject);
     procedure DBGrid1CellClick(Column: TColumn);
     procedure FormShow(Sender: TObject);
+    procedure FormResize(Sender: TObject);
   private
     { Private declarations }
   public
@@ -44,6 +45,26 @@ begin
   Ufilmchange.FilmID:= Dbgrid1.Fields[0].AsInteger;
   Ufilmchange.Form7.Show;
 end;
+
+procedure TForm4.FormResize(Sender: TObject);
+var MainWidth:integer;
+begin
+
+MainWidth:= round( dbgrid1.Width / 100 );
+
+dbgrid1.Columns[1].Width:= MainWidth * 10; //название
+dbgrid1.Columns[2].Width:= MainWidth * 10; //страна
+dbgrid1.Columns[3].Width:= MainWidth * 10; //жанр
+dbgrid1.Columns[4].Width:= MainWidth * 5; //возраст
+dbgrid1.Columns[5].Width:= MainWidth * 10; //start
+dbgrid1.Columns[6].Width:= MainWidth * 10; //end
+dbgrid1.Columns[7].Width:= MainWidth * 5; //time
+dbgrid1.Columns[8].Width:= MainWidth * 10; //image
+dbgrid1.Columns[9].Width:= MainWidth * 20; //descript
+
+end;
+
+
 
 procedure TForm4.FormShow(Sender: TObject);
 begin

@@ -12,7 +12,11 @@ object Form10: TForm10
   Font.Style = []
   OldCreateOrder = False
   Position = poScreenCenter
+  OnResize = FormResize
   OnShow = FormShow
+  DesignSize = (
+    532
+    358)
   PixelsPerInch = 96
   TextHeight = 13
   object DBGrid1: TDBGrid
@@ -20,6 +24,7 @@ object Form10: TForm10
     Top = 8
     Width = 505
     Height = 273
+    Anchors = [akLeft, akTop, akRight, akBottom]
     DataSource = DataSource1
     TabOrder = 0
     TitleFont.Charset = DEFAULT_CHARSET
@@ -59,6 +64,7 @@ object Form10: TForm10
     Top = 304
     Width = 75
     Height = 25
+    Anchors = [akLeft, akBottom]
     Caption = #1044#1086#1073#1072#1074#1080#1090#1100
     TabOrder = 1
     OnClick = Button1Click
@@ -70,9 +76,9 @@ object Form10: TForm10
     CachedUpdates = False
     ParamCheck = True
     SQL.Strings = (
-      'select PID,CID,Country.Name,People.Name'
-      'from People'
-      'inner join Country on ( country.CID = People.CID  )')
+      'select p.PID,p.CID,c.Name,P.Name'
+      'from People as p'
+      'inner join Country as c on ( c.CID = P.CID  )')
     Left = 168
     Top = 296
   end

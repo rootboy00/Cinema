@@ -10,12 +10,12 @@ uses
 type
   TForm16 = class(TForm)
     DBGrid1: TDBGrid;
-    Button1: TButton;
     DataSource1: TDataSource;
     IBDataSet1: TIBDataSet;
     procedure Button1Click(Sender: TObject);
     procedure refreshing;
     procedure FormShow(Sender: TObject);
+    procedure FormResize(Sender: TObject);
   private
     { Private declarations }
   public
@@ -28,6 +28,18 @@ var
 implementation
 
 {$R *.dfm}
+
+procedure TForm16.FormResize(Sender: TObject);
+var MainWidth:integer;
+begin
+  MainWidth:= round( dbgrid1.Width / 100 ) ;
+  dbgrid1.Columns[1].Width:= MainWidth * 20;
+  dbgrid1.Columns[2].Width:= MainWidth * 20;
+  dbgrid1.Columns[3].Width:= MainWidth * 20;
+  dbgrid1.Columns[4].Width:= MainWidth * 10;
+  dbgrid1.Columns[5].Width:= MainWidth * 10;
+end;
+
 
 procedure TForm16.FormShow(Sender: TObject);
 begin

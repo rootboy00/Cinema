@@ -131,8 +131,6 @@ object Form21: TForm21
   object IBTable1: TIBTable
     Database = Form1.IBDatabase1
     Transaction = Form1.IBTransaction1
-    BufferChunks = 1000
-    CachedUpdates = False
     FieldDefs = <
       item
         Name = 'FID'
@@ -194,7 +192,6 @@ object Form21: TForm21
       end>
     StoreDefs = True
     TableName = 'FILM'
-    UniDirectional = False
     Top = 336
   end
   object DataSource1: TDataSource
@@ -205,8 +202,6 @@ object Form21: TForm21
   object IBTable2: TIBTable
     Database = Form1.IBDatabase1
     Transaction = Form1.IBTransaction1
-    BufferChunks = 1000
-    CachedUpdates = False
     FieldDefs = <
       item
         Name = 'PID'
@@ -238,7 +233,6 @@ object Form21: TForm21
       end>
     StoreDefs = True
     TableName = 'PEOPLE'
-    UniDirectional = False
     Left = 80
     Top = 336
   end
@@ -250,8 +244,6 @@ object Form21: TForm21
   object IBTable3: TIBTable
     Database = Form1.IBDatabase1
     Transaction = Form1.IBTransaction1
-    BufferChunks = 1000
-    CachedUpdates = False
     FieldDefs = <
       item
         Name = 'TPID'
@@ -279,7 +271,6 @@ object Form21: TForm21
       end>
     StoreDefs = True
     TableName = 'TYPEPEOPLE'
-    UniDirectional = False
     Left = 144
     Top = 336
   end
@@ -291,9 +282,6 @@ object Form21: TForm21
   object IBQuery1: TIBQuery
     Database = Form1.IBDatabase1
     Transaction = Form1.IBTransaction1
-    BufferChunks = 1000
-    CachedUpdates = False
-    ParamCheck = True
     Left = 224
     Top = 336
   end

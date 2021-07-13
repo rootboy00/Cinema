@@ -18,6 +18,7 @@ type
     procedure DBGrid1CellClick(Column: TColumn);
     procedure Button1Click(Sender: TObject);
     procedure ComboBox1Change(Sender: TObject);
+    procedure FormResize(Sender: TObject);
 
   private
 
@@ -58,7 +59,7 @@ end;
 
 procedure TForm2.Button1Click(Sender: TObject);
 begin
-  UCountryChange.Texttype := 0;
+  UCountryChange.CID := 0;
   UCountryChange.Form3.Show;
 end;
 
@@ -69,8 +70,13 @@ end;
 
 procedure TForm2.DBGrid1CellClick(Column: TColumn);
 begin
-  UCountryChange.Texttype := dbgrid1.Fields[0].asinteger;
+  UCountryChange.CID := dbgrid1.Fields[0].asinteger;
   UCountryChange.Form3.Show;
+end;
+
+procedure TForm2.FormResize(Sender: TObject);
+begin
+dbgrid1.Columns[1].Width:= dbgrid1.Width - 50;
 end;
 
 procedure TForm2.FormShow(Sender: TObject);

@@ -1,0 +1,76 @@
+unit Utypepeoplechange;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Data.DB,
+  IBX.IBCustomDataSet, IBX.IBQuery;
+
+type
+  TForm19 = class(TForm)
+    Edit1: TEdit;
+    Button1: TButton;
+    Button2: TButton;
+    Label1: TLabel;
+    IBQuery1: TIBQuery;
+    procedure FormShow(Sender: TObject);
+    procedure Button1Click(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  Form19: TForm19;
+  TypeID:Integer;
+
+implementation
+ uses Umain;
+{$R *.dfm}
+
+procedure TForm19.Button1Click(Sender: TObject);
+begin
+
+
+  if(TypeID = 0) then
+  begin
+    //aba
+  end else
+  begin
+
+  end;
+
+
+
+end;
+
+procedure TForm19.FormShow(Sender: TObject);
+begin
+
+
+edit1.Text:='';
+
+
+  if(TypeID = 0) then
+    begin
+      label1.Caption:= 'Введите имя нового типа';
+      button1.Caption:= 'Добавить';
+      button2.Visible:= false;
+    end else
+    begin
+      ibquery1.SQL.Clear;
+      ibquery1.SQL.Add('Select Name from typepeople where TPID = :TPID');
+      ibquery1.ParamByName('TPID'):= TypeID;
+      ibquery1.Open;
+      label1.Caption:= 'Изменить имя ('+ ibquery1.Fields[0].AsString +')';
+      button1.Caption:= 'Изменить';
+      button2.Caption:= 'Удалить';
+      button2.Visible:= true;
+    end;
+end;
+
+
+
+end.

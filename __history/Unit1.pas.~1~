@@ -1,0 +1,47 @@
+unit Unit1;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Data.DB, IBX.IBDatabase;
+
+type
+  TForm1 = class(TForm)
+    ComboBox1: TComboBox;
+    IBDatabase1: TIBDatabase;
+    procedure ComboBox1Change(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+
+
+
+
+  Form1: TForm1;
+
+implementation
+
+{$R *.dfm}
+
+procedure TForm1.ComboBox1Change(Sender: TObject);
+begin
+
+IBDatabase1.Connected:= false;
+case(ComboBox1.ItemIndex) of
+0: begin
+  IBDatabase1.Params.Add('password=1');
+  IBDatabase1.Params.Add('user_name=Home');
+  IBDatabase1.Params.Add('lc_ctype=WIN1251');
+  end;
+end;
+
+IBDataBase1.Connected:= true;
+if(IBDataBase1.Connected) then ShowMessage('Удачно');
+end;
+
+end.

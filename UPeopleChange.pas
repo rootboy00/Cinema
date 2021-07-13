@@ -21,13 +21,13 @@ type
     Label2: TLabel;
     Button3: TButton;
     Label3: TLabel;
-    Button4: TButton;
     procedure Button1Click(Sender: TObject);
     procedure Button2Click(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure Button3Click(Sender: TObject);
     procedure refreshing;
     procedure Button4Click(Sender: TObject);
+    procedure FormCreate(Sender: TObject);
   private
     { Private declarations }
   public
@@ -107,13 +107,18 @@ end;
 
 procedure TForm11.Button3Click(Sender: TObject);
 begin
-  UcountryChange.Texttype := 0;
-  UcountryChange.Form3.Show;
+  UCountryChange.CID := 0;
+  UCountryChange.Form3.Show;
 end;
 
 procedure TForm11.Button4Click(Sender: TObject);
 begin
   refreshing;
+end;
+
+procedure TForm11.FormCreate(Sender: TObject);
+begin
+//
 end;
 
 procedure TForm11.FormShow(Sender: TObject);

@@ -1,0 +1,185 @@
+unit Uplacechange;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.ExtCtrls, Data.DB,
+  IBX.IBCustomDataSet, IBX.IBQuery, Vcl.ButtonGroup, Vcl.Buttons;
+
+type
+  TForm13 = class(TForm)
+    Button1: TButton;
+    Memo1: TMemo;
+    Button2: TButton;
+    ibquery1: TIBQuery;
+    Edit1: TEdit;
+    Button3: TButton;
+    ComboBox1: TComboBox;
+    procedure Button1Click(Sender: TObject);
+    procedure Button2Click(Sender: TObject);
+    procedure Click(Sender: TObject);
+    procedure Button3Click(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+  type RPlace = record
+    Row:integer;
+    Col:integer;
+    Length:Integer;
+  end;
+
+
+var
+  Form13: TForm13;
+  Place: array[0..500] of RPlace;
+  i:integer;
+  MaxCol,MaxRow,maxsize:integer;
+  panel: TPanel;
+implementation
+  uses umain,colorButton;
+{$R *.dfm}
+
+procedure TForm13.Button1Click(Sender: TObject);
+begin
+
+MaxRow:=0;
+MaxCol:=0;
+
+  ibquery1.SQL.Clear;
+  ibquery1.SQL.Add('select plrow,plcol,lengthplace from place where (HID = :HID ) order by PLROW,PLCOL');
+
+  ibquery1.ParamByName('HID').AsString:= combobox1.Items[Combobox1.ItemIndex];
+  ibquery1.Open;
+  i:= 0;
+  ibquery1.First;
+    while not( Ibquery1.Eof ) do
+    begin
+    Place[i].Row:= ibquery1.Fields[0].AsInteger;
+    Place[i].col:= ibquery1.Fields[1].AsInteger;
+    Place[i].Length:= ibquery1.Fields[2].AsInteger;
+    ibquery1.Next;
+    i:= i + 1;
+    end;
+    MaxSize:= i - 1;
+
+memo1.Lines.Clear;
+  for I := 0 to MaxSize do
+    begin
+      memo1.Lines.Add( Inttostr(Place[i].Row) + ' ' + Inttostr(Place[i].Col) + ' ' + Inttostr(Place[i].Length));
+    end;
+
+    ibquery1.SQL.Clear;
+    ibquery1.SQL.Add('select ROW_COUNT,COL_COUNT from HALL where HID = :HID');
+    ibquery1.ParamByName('HID').AsString:= combobox1.Items[Combobox1.ItemIndex];
+    ibquery1.Open;
+
+    MaxRow:= ibquery1.Fields[0].AsInteger;
+    MaxCol:= ibquery1.Fields[1].AsInteger;
+
+    edit1.Text:= 'ROW:' + Inttostr(MaxRow) + ' COL:' + Inttostr(MaxCol);
+
+
+
+
+end;
+
+procedure TForm13.Click(Sender: TObject);
+var tag:integer;
+begin
+  tag:= (sender as Tbutton).tag;
+
+  //showmessage('ky ' + inttostr(tag) );
+   showmessage(Inttostr(Place[tag].row) + ' ' + Inttostr(Place[tag].Col));
+
+
+end;
+
+procedure TForm13.Button2Click(Sender: TObject);
+var
+ar: array[0..100] of TColorButton;
+
+Heigh_But,Width_But:integer;
+Left_but,top_but:integer;
+step_left,step_up:integer;
+Row,Col:integer;
+cnt:integer;
+j,k:integer;
+tmp_width:integer;
+begin
+
+Row:= MaxRow;
+Col:= MaxCol;
+
+Panel:= TPanel.Create(Self);
+Panel.Parent:= self;
+Panel.Width:= 400;
+Panel.Height:= 400;
+Panel.Top:=  10;
+Panel.Left:= 10;
+Panel.Color:= clred;
+
+
+if(row = 1) then row:= 2;
+
+Width_but:= round( Panel.Width / (Col * 2 ));
+Heigh_but:= round( Panel.Height/ (Row * 2 ));
+Step_left:= round(Width_but / 2);
+Step_up:= round( Heigh_but / 2 );
+
+
+Left_but:= Width_but;
+Top_but:= Heigh_but;
+cnt:= 0;
+
+for k := 1 to Row do
+  begin
+    for j := 1 to Col do
+    begin
+      if ( place[cnt].Col <> j  ) then break;
+
+
+      tmp_width:= Width_but;
+      if((MaxSize >= cnt) and (Place[cnt].Length > 0)) then
+      begin
+
+      tmp_width:= Place[cnt].Length* Width_but + step_left*(Place[cnt].Length-1);
+      //if( Place[cnt].Length > 1 ) then tmp_width:= tmp_width + step_left*Place[cnt].Length;
+
+      Ar[cnt]:= TColorButton.Create(Panel);
+      Ar[cnt].Height:= Heigh_but;
+      Ar[cnt].Width:= tmp_width;
+      Ar[cnt].Parent:= Panel;
+      Ar[cnt].left:= Left_but;
+      Ar[cnt].top:= Top_but;
+      Ar[cnt].tag:= cnt ;
+      Ar[cnt].OnClick:= Click;
+      Ar[cnt].Color:= rgb(0,255,0);
+      //Ar[cnt].Show;
+      end;
+
+      Left_But:= Left_But + tmp_width + step_left;
+      cnt:= cnt + 1;
+    end;
+
+  Top_But:= Top_But + Heigh_but + step_up;
+  Left_but:= Width_but;
+  end;
+
+
+
+
+cnt:= 0;
+end;
+
+
+procedure TForm13.Button3Click(Sender: TObject);
+begin
+//agasgasg
+Panel.Free;
+end;
+
+end.

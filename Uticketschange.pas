@@ -5,7 +5,7 @@ interface
 uses
   Windows, Messages, SysUtils, Variants,
   Classes, Graphics,
-  Controls, Forms, Dialogs, DBCtrls, UMain, DB, IBCustomDataSet, Vcl.StdCtrls;
+  Controls, Forms, Dialogs, DBCtrls, UMain, DB, IBCustomDataSet, StdCtrls;
 
 type
   TForm17 = class(TForm)

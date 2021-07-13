@@ -64,7 +64,7 @@ object Form7: TForm7
   object Label4: TLabel
     Left = 24
     Top = 188
-    Width = 193
+    Width = 182
     Height = 19
     Caption = #1042#1086#1079#1088#1072#1089#1090#1085#1086#1077' '#1086#1075#1088#1072#1085#1080#1095#1077#1085#1080#1077
     Font.Charset = DEFAULT_CHARSET
@@ -77,7 +77,7 @@ object Form7: TForm7
   object Label5: TLabel
     Left = 24
     Top = 240
-    Width = 169
+    Width = 164
     Height = 19
     Caption = #1044#1083#1080#1090#1077#1083#1100#1085#1086#1089#1090#1100' '#1092#1080#1083#1100#1084#1072
     Font.Charset = DEFAULT_CHARSET

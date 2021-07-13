@@ -2,7 +2,7 @@ object Form2: TForm2
   Left = 0
   Top = 0
   Caption = #1057#1090#1088#1072#1085#1099
-  ClientHeight = 344
+  ClientHeight = 404
   ClientWidth = 408
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -12,7 +12,11 @@ object Form2: TForm2
   Font.Style = []
   OldCreateOrder = False
   Position = poScreenCenter
+  OnResize = FormResize
   OnShow = FormShow
+  DesignSize = (
+    408
+    404)
   PixelsPerInch = 96
   TextHeight = 13
   object DBGrid1: TDBGrid
@@ -20,7 +24,9 @@ object Form2: TForm2
     Top = 35
     Width = 385
     Height = 249
+    Anchors = [akLeft, akTop, akRight, akBottom]
     DataSource = DataSource1
+    Options = [dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgRowSelect, dgConfirmDelete, dgCancelOnExit, dgTitleClick, dgTitleHotTrack]
     TabOrder = 0
     TitleFont.Charset = DEFAULT_CHARSET
     TitleFont.Color = clWindowText
@@ -46,6 +52,7 @@ object Form2: TForm2
     Top = 298
     Width = 121
     Height = 33
+    Anchors = [akLeft, akBottom]
     Caption = #1044#1086#1073#1072#1074#1080#1090#1100' '#1053#1086#1074#1091#1102
     TabOrder = 1
     OnClick = Button1Click
@@ -65,8 +72,8 @@ object Form2: TForm2
   end
   object DataSource1: TDataSource
     DataSet = IBQuery1
-    Left = 32
-    Top = 360
+    Left = 64
+    Top = 352
   end
   object IBQuery1: TIBQuery
     Database = Form1.IBDatabase1
@@ -74,6 +81,7 @@ object Form2: TForm2
     BufferChunks = 1000
     CachedUpdates = False
     ParamCheck = True
-    Top = 360
+    Left = 16
+    Top = 352
   end
 end

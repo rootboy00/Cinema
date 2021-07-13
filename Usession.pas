@@ -18,6 +18,7 @@ type
     procedure DBGrid1CellClick(Column: TColumn);
     procedure refreshing;
     procedure FormShow(Sender: TObject);
+    procedure FormResize(Sender: TObject);
   private
     { Private declarations }
   public
@@ -48,6 +49,17 @@ procedure TForm14.DBGrid1CellClick(Column: TColumn);
 begin
   UsessionChange.SessionID := DBGrid1.Fields[0].AsInteger;
   UsessionChange.Form15.Show;
+end;
+
+procedure TForm14.FormResize(Sender: TObject);
+var MainWidth:integer;
+begin
+  MainWidth:= round( dbgrid1.Width / 100 ) ;
+  dbgrid1.Columns[1].Width:= MainWidth * 20;
+  dbgrid1.Columns[2].Width:= MainWidth * 10;
+  dbgrid1.Columns[3].Width:= MainWidth * 10;
+  dbgrid1.Columns[4].Width:= MainWidth * 20;
+  dbgrid1.Columns[5].Width:= MainWidth * 10;
 end;
 
 procedure TForm14.FormShow(Sender: TObject);

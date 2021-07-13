@@ -18,6 +18,7 @@ type
     procedure DBGrid1CellClick(Column: TColumn);
     procedure refreshing;
     procedure FormShow(Sender: TObject);
+    procedure FormResize(Sender: TObject);
   private
     { Private declarations }
   public
@@ -56,7 +57,13 @@ end;
 
 
 
-
+procedure TForm10.FormResize(Sender: TObject);
+var MainWidth:integer;
+begin
+MainWidth:= round( dbgrid1.Width / 100 ) ;
+  dbgrid1.Columns[1].Width:= MainWidth * 50;
+  dbgrid1.Columns[2].Width:= MainWidth * 50;
+end;
 
 
 

@@ -1,0 +1,300 @@
+unit UMain;
+
+interface
+
+uses
+   Windows, Messages, SysUtils, Variants, Classes, Graphics,  Forms,
+  Dialogs, StdCtrls, IBDatabase, Menus, DB, Controls, IBX.IBCustomDataSet,
+  IBX.IBQuery, Vcl.Grids, Vcl.DBGrids, Vcl.ExtCtrls;
+
+type
+  TForm1 = class(TForm)
+    IBDatabase1: TIBDatabase;
+    MainMenu1: TMainMenu;
+    N1: TMenuItem;
+    Country1: TMenuItem;
+    Fil1: TMenuItem;
+    Genre1: TMenuItem;
+    Hall1: TMenuItem;
+    People1: TMenuItem;
+    Place1: TMenuItem;
+    Session1: TMenuItem;
+    ickets1: TMenuItem;
+    typepeople1: TMenuItem;
+    workspeople1: TMenuItem;
+    IBTransaction1: TIBTransaction;
+    DBGrid1: TDBGrid;
+    Label1: TLabel;
+    IBQuery1: TIBQuery;
+    DataSource1: TDataSource;
+    Edit1: TEdit;
+    procedure Country1Click(Sender: TObject);
+    procedure Genre1Click(Sender: TObject);
+    procedure Fil1Click(Sender: TObject);
+    procedure Hall1Click(Sender: TObject);
+    procedure People1Click(Sender: TObject);
+    procedure Place1Click(Sender: TObject);
+    procedure Session1Click(Sender: TObject);
+    procedure ickets1Click(Sender: TObject);
+    procedure typepeople1Click(Sender: TObject);
+    procedure workspeople1Click(Sender: TObject);
+    procedure FormCreate(Sender: TObject);
+    procedure test11Click(Sender: TObject);
+    procedure GetCommit;
+    procedure Button1Click(Sender: TObject);
+    procedure Button2Click(Sender: TObject);
+    procedure Edit1Change(Sender: TObject);
+    procedure DBGrid1CellClick(Column: TColumn);
+    procedure FormResize(Sender: TObject);
+  private
+    { Private declarations }
+  public
+  end;
+
+var
+
+  Form1: TForm1;
+
+implementation
+
+uses UCountry, UGenre, Ufilm, Uhall, Upeople, Uplace, Usession, Utickets,
+  Utypepeople, Uworkspeople,Ucountrychange,Ufilmshow;
+
+{$R *.dfm}
+
+
+procedure Tform1.GetCommit;
+begin
+  IBTransaction1.Commit;
+  IBTransaction1.StartTransaction;
+  Form1.IBQuery1.Active:= true;
+
+end;
+
+
+
+procedure FormResize(Sender: TObject);
+const
+// Размеры колонок с фиксированной шириной (для колонок с изменяющейся шириной
+// требуется указать 0, для колонок, у которых ширина должна быть фиксированной,
+// необходимо указать ширину колонки в пикселах)
+    FixedColWidth: array[0..3] of Integer = (0,0,0,50);
+// Номер колонки, для которой вычисление ширины будет осуществляться в последнюю
+// очередь с целью подгонки суммы ширин колонок под общюю ширину компонента.
+// Ширина этой колонки не должна быть фиксированной!!!
+    LastColNum = 0;
+var I, VariableSum, FixedSum, FullWidth, LastColWidth: Integer;
+    R: Real;
+begin
+// Проверка на наличие ошибок в размернгости массива ширин колонок
+   if (Length(FixedColWidth)<>DBGrid1.Columns.Count) then
+   begin
+      MessageDlg('Неверно указано количество колонок в форме.', mtError,
+       [mbOk], 0);
+      Exit;
+   end;
+// Проверка правильности выбора корректирующей колонки
+   if (FixedColWidth[LastColNum]<>0) then
+   begin
+      MessageDlg('Неверно выбрана колонка для корректировки размеров.', mtError,
+       [mbOk], 0);
+      Exit;
+   end;
+// Вычисление сумм ширин колонок с изменяемой и фиксированной шириной
+   VariableSum:=0;
+   FixedSum:=0;
+   for I:=0 to DBGrid1.Columns.Count-1 do
+   begin
+      if (FixedColWidth[I]=0) then
+      begin
+         VariableSum:=VariableSum+DBGrid1.Columns[I].Width;
+      end else
+      begin
+         FixedSum:=FixedSum+FixedColWidth[I];
+      end;
+   end;
+// Будущая сумма ширин колонок с изменяемой шириной (из нее не забыть вычесть
+// ширину указателя в левой части строки - 16 пикселей)
+   FullWidth:=DBGrid1.Width-16-FixedSum;
+   if not(DBGrid1.DataSource.DataSet.IsEmpty) then
+   begin
+      FullWidth:=FullWidth-17;
+   end;
+// Подготовка к вычислению ширины последней корректирующей колонки
+   LastColWidth:=FullWidth;
+   for I:=0 to DBGrid1.Columns.Count-1 do
+   begin
+// Корректирующую колонку исключить из вычислений
+      if (I<>LastColNum) then
+      begin
+         if (FixedColWidth[I]=0) then
+         begin
+// Вычисление ширины колонки с изменяемой шириной
+            if (VariableSum>0) then
+            begin
+               R:=100*DBGrid1.Columns[I].Width/VariableSum;
+               if (R<5) then R:=5;
+            end else R:=5;
+            DBGrid1.Columns[I].Width:=Round(R*FullWidth/100);
+// Вычисление ширины последней корректирующей колонки
+            LastColWidth:=LastColWidth-DBGrid1.Columns[I].Width;
+         end else
+         begin
+// Назначение ширины колонке с фиксированной шириной
+            DBGrid1.Columns[I].Width:=FixedColWidth[I];
+         end;
+      end;
+   end;
+// Назначение ширины для последней корректирующей колонки
+   DBGrid1.Columns[LastColNum].Width:=LastColWidth;
+end;
+
+
+
+
+
+
+
+
+
+procedure TForm1.Button1Click(Sender: TObject);
+begin
+  GetCommit;
+end;
+
+procedure TForm1.Button2Click(Sender: TObject);
+begin
+  Ucountrychange.CID:= 0;
+  Ucountrychange.Form3.Show;
+end;
+
+procedure TForm1.Country1Click(Sender: TObject);
+begin
+  UCountry.Form2.Show;
+end;
+
+procedure TForm1.DBGrid1CellClick(Column: TColumn);
+var FilmID:integer;
+begin
+  Ufilmshow.FilmID:= dbgrid1.Fields[0].AsInteger;
+  Ufilmshow.Form22.Show;
+end;
+
+
+
+procedure TForm1.Edit1Change(Sender: TObject);
+var addsql:string;
+begin
+  dbgrid1.Visible:= true;
+
+  if(edit1.Text='') then
+  begin
+    addsql:='';
+  end else
+  begin
+    addsql:=' where NAME like ''%' + edit1.Text + '%''';
+
+
+  end;
+
+  ibquery1.SQL.Clear;
+  ibquery1.SQL.Add('Select FID,NAME from film' + addsql);
+  ibquery1.Open;
+
+  if(ibquery1.Fields[0].AsInteger = 0) then dbgrid1.Visible:= false;
+
+
+
+end;
+
+procedure TForm1.Fil1Click(Sender: TObject);
+begin
+  Ufilm.Form4.Show;
+
+end;
+
+procedure TForm1.FormCreate(Sender: TObject);
+begin
+  UMain.Form1.Show;
+  ibdatabase1.Connected:= false;
+
+  try
+    IBDatabase1.Params.Clear;
+    IBDatabase1.DatabaseName := 'sql\HOME_BASE_show.ib';
+    IBDatabase1.Params.Add('password=masterkey');
+    IBDatabase1.Params.Add('user_name=SYSDBA');
+    IBDatabase1.Params.Add('lc_ctype=WIN1251');
+    IBDatabase1.Connected := true;
+  except
+    showmessage('Домашная база не загружена');
+  end;
+
+  if not(ibdatabase1.Connected) then
+  begin
+    try
+      IBDatabase1.Params.Add('password=edu-759');
+      IBDatabase1.Params.Add('user_name=student');
+      IBDatabase1.Params.Add('lc_ctype=WIN1251');
+      IBDatabase1.Connected := true;
+    except
+      showmessage('Школьная база не загружена');
+    end;
+
+  end;
+
+
+  Ibquery1.SQL.Clear;
+  Ibquery1.SQL.Add('Select FID,Name from film');
+  ibquery1.Open;
+  if(ibquery1.Fields[0].AsInteger = 0) then dbgrid1.Visible:= false;
+
+  UMain.Form1.GetCommit;
+
+end;
+
+procedure TForm1.Genre1Click(Sender: TObject);
+begin
+  UGenre.Genre.Show;
+end;
+
+procedure TForm1.Hall1Click(Sender: TObject);
+begin
+  Uhall.Form8.Show;
+end;
+
+procedure TForm1.ickets1Click(Sender: TObject);
+begin
+  Utickets.Form16.Show;
+end;
+
+procedure TForm1.People1Click(Sender: TObject);
+begin
+  Upeople.Form10.Show;
+end;
+
+procedure TForm1.Place1Click(Sender: TObject);
+begin
+  Uplace.Form6.Show;
+end;
+
+procedure TForm1.Session1Click(Sender: TObject);
+begin
+  Usession.Form14.Show;
+end;
+
+procedure TForm1.test11Click(Sender: TObject);
+begin
+//bababab
+end;
+
+procedure TForm1.typepeople1Click(Sender: TObject);
+begin
+  Utypepeople.Form18.Show;
+end;
+
+procedure TForm1.workspeople1Click(Sender: TObject);
+begin
+  Uworkspeople.Form20.Show;
+end;
+
+end.

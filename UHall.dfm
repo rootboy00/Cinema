@@ -12,7 +12,11 @@ object Form8: TForm8
   Font.Style = []
   OldCreateOrder = False
   Position = poScreenCenter
+  OnResize = FormResize
   OnShow = FormShow
+  DesignSize = (
+    507
+    265)
   PixelsPerInch = 96
   TextHeight = 13
   object Button1: TButton
@@ -20,6 +24,7 @@ object Form8: TForm8
     Top = 199
     Width = 75
     Height = 25
+    Anchors = [akLeft, akBottom]
     Caption = #1044#1086#1073#1072#1074#1080#1090#1100
     TabOrder = 0
     OnClick = Button1Click
@@ -29,6 +34,7 @@ object Form8: TForm8
     Top = 8
     Width = 481
     Height = 161
+    Anchors = [akLeft, akTop, akRight, akBottom]
     DataSource = DataSource1
     TabOrder = 1
     TitleFont.Charset = DEFAULT_CHARSET

@@ -12,7 +12,11 @@ object Form14: TForm14
   Font.Style = []
   OldCreateOrder = False
   Position = poScreenCenter
+  OnResize = FormResize
   OnShow = FormShow
+  DesignSize = (
+    516
+    272)
   PixelsPerInch = 96
   TextHeight = 13
   object DBGrid1: TDBGrid
@@ -20,6 +24,7 @@ object Form14: TForm14
     Top = 8
     Width = 489
     Height = 217
+    Anchors = [akLeft, akTop, akRight, akBottom]
     DataSource = DataSource1
     TabOrder = 0
     TitleFont.Charset = DEFAULT_CHARSET
@@ -74,6 +79,7 @@ object Form14: TForm14
     Top = 231
     Width = 137
     Height = 34
+    Anchors = [akLeft, akBottom]
     Caption = #1044#1086#1073#1072#1074#1080#1090#1100' '#1053#1086#1074#1091#1102
     TabOrder = 1
     OnClick = Button1Click

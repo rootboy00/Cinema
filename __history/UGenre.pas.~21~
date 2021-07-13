@@ -1,0 +1,62 @@
+unit UGenre;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Data.DB, IBX.IBTable,
+  IBX.IBCustomDataSet, Vcl.Grids, Vcl.DBGrids, Vcl.StdCtrls;
+
+type
+  TGenre = class(TForm)
+    DBGrid1: TDBGrid;
+    DataSource1: TDataSource;
+    IBDataSet1: TIBDataSet;
+    Button1: TButton;
+    procedure FormShow(Sender: TObject);
+    procedure Button1Click(Sender: TObject);
+    procedure DBGrid1CellClick(Column: TColumn);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+    procedure Refreshing;
+  end;
+
+var
+  Genre: TGenre;
+
+implementation
+ uses Umain,UGenreChange;
+{$R *.dfm}
+
+procedure TGenre.Refreshing;
+begin
+ibdataset1.Active:= false;
+ibdataset1.Active:= true;
+end;
+
+
+
+
+procedure TGenre.Button1Click(Sender: TObject);
+begin
+UGenreChange.Texttype:= 0;
+UGenreChange.Form5.Show;
+
+end;
+
+procedure TGenre.DBGrid1CellClick(Column: TColumn);
+begin
+UGenreChange.Texttype:= IbDataset1.Fields[0].asinteger;
+UGenreChange.Form5.Show;
+end;
+
+procedure TGenre.FormShow(Sender: TObject);
+begin
+//Refreshing;
+end;
+
+
+
+end.

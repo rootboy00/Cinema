@@ -4,15 +4,14 @@ interface
 
 uses
    Windows, Messages, SysUtils, Variants, Classes, Graphics,  Forms,
-  Dialogs, StdCtrls, IBDatabase, Menus, DB, Controls;
+  Dialogs, StdCtrls, IBDatabase, Menus, DB, Controls, IBX.IBCustomDataSet,
+  IBX.IBQuery, Vcl.Grids, Vcl.DBGrids, Vcl.ExtCtrls;
 
 type
   TForm1 = class(TForm)
-    ComboBox1: TComboBox;
     IBDatabase1: TIBDatabase;
     MainMenu1: TMainMenu;
     N1: TMenuItem;
-    test11: TMenuItem;
     Country1: TMenuItem;
     Fil1: TMenuItem;
     Genre1: TMenuItem;
@@ -24,9 +23,11 @@ type
     typepeople1: TMenuItem;
     workspeople1: TMenuItem;
     IBTransaction1: TIBTransaction;
-    Button1: TButton;
-    N11: TMenuItem;
-    procedure ComboBox1Change(Sender: TObject);
+    DBGrid1: TDBGrid;
+    Label1: TLabel;
+    IBQuery1: TIBQuery;
+    DataSource1: TDataSource;
+    Edit1: TEdit;
     procedure Country1Click(Sender: TObject);
     procedure Genre1Click(Sender: TObject);
     procedure Fil1Click(Sender: TObject);
@@ -37,67 +38,87 @@ type
     procedure ickets1Click(Sender: TObject);
     procedure typepeople1Click(Sender: TObject);
     procedure workspeople1Click(Sender: TObject);
-    procedure Button1Click(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure test11Click(Sender: TObject);
+    procedure GetCommit;
+    procedure Button1Click(Sender: TObject);
+    procedure Button2Click(Sender: TObject);
+    procedure Edit1Change(Sender: TObject);
+    procedure DBGrid1CellClick(Column: TColumn);
   private
     { Private declarations }
   public
   end;
-
 var
-
   Form1: TForm1;
 
 implementation
 
 uses UCountry, UGenre, Ufilm, Uhall, Upeople, Uplace, Usession, Utickets,
-  Utypepeople, Uworkspeople;
+  Utypepeople, Uworkspeople,Ucountrychange,Ufilmshow;
 
 {$R *.dfm}
 
-procedure TForm1.Button1Click(Sender: TObject);
+
+procedure Tform1.GetCommit;
 begin
   IBTransaction1.Commit;
   IBTransaction1.StartTransaction;
+  Form1.IBQuery1.Active:= true;
 
 end;
 
-procedure TForm1.ComboBox1Change(Sender: TObject);
+
+
+
+procedure TForm1.Button1Click(Sender: TObject);
 begin
+  GetCommit;
+end;
 
-  IBDatabase1.Connected := false;
-  case (ComboBox1.ItemIndex) of
-    0:
-      begin
-        IBDatabase1.Params.Clear;
-        IBDatabase1.DatabaseName := 'X:\db\Home_base.ib';
-        IBDatabase1.Params.Add('password=masterkey');
-        IBDatabase1.Params.Add('user_name=SYSDBA');
-        IBDatabase1.Params.Add('lc_ctype=WIN1251');
-      end;
-    1:
-      begin
-        IBDatabase1.Params.Clear;
-
-        IBDatabase1.Params.Add('password=edu-759');
-        IBDatabase1.Params.Add('user_name=student');
-        IBDatabase1.Params.Add('lc_ctype=WIN1251');
-      end;
-  end;
-
-  try
-    IBDatabase1.Connected := true;
-  finally
-    if (IBDatabase1.Connected) then
-      ShowMessage('Удачно');
-  end;
-
+procedure TForm1.Button2Click(Sender: TObject);
+begin
+  Ucountrychange.CID:= 0;
+  Ucountrychange.Form3.Show;
 end;
 
 procedure TForm1.Country1Click(Sender: TObject);
 begin
   UCountry.Form2.Show;
+end;
+
+procedure TForm1.DBGrid1CellClick(Column: TColumn);
+var FilmID:integer;
+begin
+  Ufilmshow.FilmID:= dbgrid1.Fields[0].AsInteger;
+  Ufilmshow.Form22.Show;
+end;
+
+
+
+procedure TForm1.Edit1Change(Sender: TObject);
+var addsql:string;
+begin
+  dbgrid1.Visible:= true;
+
+  if(edit1.Text='') then
+  begin
+    addsql:='';
+  end else
+  begin
+    addsql:=' where NAME like ''%' + edit1.Text + '%''';
+
+
+  end;
+
+  ibquery1.SQL.Clear;
+  ibquery1.SQL.Add('Select FID,NAME from film' + addsql);
+  ibquery1.Open;
+
+  if(ibquery1.Fields[0].AsInteger = 0) then dbgrid1.Visible:= false;
+
+
+
 end;
 
 procedure TForm1.Fil1Click(Sender: TObject);
@@ -109,7 +130,40 @@ end;
 procedure TForm1.FormCreate(Sender: TObject);
 begin
   UMain.Form1.Show;
-  ibdatabase1.Connected:= true;
+  ibdatabase1.Connected:= false;
+
+  try
+    IBDatabase1.Params.Clear;
+    IBDatabase1.DatabaseName := 'sql\HOME_BASE.ib';
+    IBDatabase1.Params.Add('password=masterkey');
+    IBDatabase1.Params.Add('user_name=SYSDBA');
+    IBDatabase1.Params.Add('lc_ctype=WIN1251');
+    IBDatabase1.Connected := true;
+  except
+    showmessage('Домашная база не загружена');
+  end;
+
+  if not(ibdatabase1.Connected) then
+  begin
+    try
+      IBDatabase1.Params.Add('password=edu-759');
+      IBDatabase1.Params.Add('user_name=student');
+      IBDatabase1.Params.Add('lc_ctype=WIN1251');
+      IBDatabase1.Connected := true;
+    except
+      showmessage('Школьная база не загружена');
+    end;
+
+  end;
+
+
+  Ibquery1.SQL.Clear;
+  Ibquery1.SQL.Add('Select FID,Name from film');
+  ibquery1.Open;
+  if(ibquery1.Fields[0].AsInteger = 0) then dbgrid1.Visible:= false;
+
+  UMain.Form1.GetCommit;
+
 end;
 
 procedure TForm1.Genre1Click(Sender: TObject);

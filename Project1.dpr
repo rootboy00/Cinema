@@ -24,7 +24,8 @@ uses
   UGenreChange in 'UGenreChange.pas' {Form5},
   Uplace in 'Uplace.pas' {Form6},
   UFilmChange in 'UFilmChange.pas' {Form7},
-  Uplacechange in 'Uplacechange.pas' {Form12};
+  Uplacechange in 'Uplacechange.pas' {Form12},
+  UFilmShow in 'UFilmShow.pas' {Form22};
 
 {$R *.res}
 
@@ -53,6 +54,7 @@ begin
   Application.CreateForm(TForm6, Form6);
   Application.CreateForm(TForm7, Form7);
   Application.CreateForm(TForm12, Form12);
+  Application.CreateForm(TForm22, Form22);
   Application.Run;
 
 end.

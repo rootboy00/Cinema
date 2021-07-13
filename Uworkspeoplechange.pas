@@ -6,7 +6,7 @@ uses
   Windows, Messages, SysUtils, Variants,
   Classes, Graphics,
   Controls, Forms, Dialogs, StdCtrls, DBCtrls, DB, IBCustomDataSet,
-  IBTable, IBX.IBQuery;
+  IBTable, IBQuery;
 
 type
   TForm21 = class(TForm)

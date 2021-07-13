@@ -25,61 +25,36 @@ type
 
 var
   Form3: TForm3;
-  Texttype: integer;
+  CID: integer;
 
 implementation
 
-uses Umain, Ucountry;
+uses Umain, Ucountry,UPeopleChange;
 {$R *.dfm}
 
 procedure TForm3.Button1Click(Sender: TObject);
 begin
+  IBQuery1.SQL.Clear;
 
-  if (Edit1.Text <> '') then
+  if(CID = 0) then
   begin
-
-    if (Texttype <> 0) then
-    begin
-      // update
-      IBQuery1.SQL.Clear;
-      IBQuery1.SQL.Add('select count(*) from country where (name= :name)');
-      IBQuery1.ParamByName('name').asstring := Edit1.Text;
-      IBQuery1.Open;
-      if (IBQuery1.Fields[0].asinteger = 0) then
-      begin
-        IBQuery1.SQL.Clear;
-        IBQuery1.SQL.Add('UPDATE Country set NAME =:Name where CID = :CID ');
-        IBQuery1.ParamByName('name').asstring := Edit1.Text;
-        IBQuery1.ParamByName('CID').asinteger := Texttype;
-        IBQuery1.ExecSQL;
-      end;
-
-    end
-    else
-    begin
-      // insert
-      IBQuery1.SQL.Clear;
-      IBQuery1.SQL.Add('select count(*) from country where (name= :name)');
-      IBQuery1.ParamByName('name').asstring := Edit1.Text;
-      IBQuery1.Open;
-
-      if (IBQuery1.Fields[0].asinteger = 0) then
-      begin
-        IBQuery1.SQL.Clear;
-        IBQuery1.SQL.Add('INSERT INTO COUNTRY(NAME) VALUES (:NAME)');
-        IBQuery1.ParamByName('name').asstring := Edit1.Text;
-        IBQuery1.ExecSQL;
-      end
-      else
-      begin
-        showmessage('Извини, но Страна с названием ' + Edit1.Text +
-          ' уже есть в базе данных');
-      end;
-
-    end;
-    Form2.Refreshing;
-    Close;
+    //Insert
+    IBQuery1.SQL.Add('INSERT INTO COUNTRY(NAME) VALUES (:NAME)');
+  end else
+  begin
+    //Update
+    IBQuery1.SQL.Add('UPDATE Country set NAME =:NAME where CID = :CID ');
+    IBQuery1.ParamByName('CID').asinteger := CID;
   end;
+  IBQuery1.ParamByName('NAME').asstring := Edit1.Text;
+  IBQuery1.ExecSQL;
+
+  UMain.Form1.GetCommit;
+
+  Form2.Refreshing;
+  form11.refreshing;
+  Close;
+
 end;
 
 procedure TForm3.Button2Click(Sender: TObject);
@@ -87,7 +62,7 @@ begin
 
   IBQuery1.SQL.Clear;
   IBQuery1.SQL.Add('delete from country where CID = :CID');
-  IBQuery1.ParamByName('CID').asinteger := Texttype;
+  IBQuery1.ParamByName('CID').asinteger := CID;
   IBQuery1.ExecSQL;
   Form2.Refreshing;
   Close;
@@ -99,32 +74,28 @@ var
 var
   CountryName: string;
 begin
+Button2.Visible := false;
 
-  IBQuery1.SQL.Clear;
-  IBQuery1.SQL.Add('select name from country where CID = :CID ');
-  IBQuery1.ParamByName('CID').asinteger := Texttype;
-  IBQuery1.Open;
-  CountryName := IBQuery1.Fields[0].asstring;
-
-  case Texttype of
-    0:
-      begin
-        UcountryChange.Form3.Caption:= 'Добавить страну';
-        str := 'Добавить новую страну';
-        Edit1.Text := 'Введите страну';
-        Button2.Visible := false;
-        Button1.Caption := 'Добавить';
-      end;
-  else
-    begin
-      str := 'Изменить название (' + CountryName + ')';
-      Edit1.Text := CountryName;
-    end;
-    Button2.Visible := true;
+  if(CID = 0) then
+  begin
+    UcountryChange.Form3.Caption:= 'Добавить страну';
+    Label1.Caption:= 'Добавить новую страну';
+    Edit1.Text := 'Введите страну';
+    Button2.Visible := false;
+    Button1.Caption := 'Добавить';
+  end else
+  begin
+    IBQuery1.SQL.Clear;
+    IBQuery1.SQL.Add('select name from country where CID = :CID ');
+    IBQuery1.ParamByName('CID').asinteger := CID;
+    IBQuery1.Open;
+    CountryName := IBQuery1.Fields[0].asstring;
+    Label1.Caption:= 'Изменить название (' + CountryName + ')';
+    Edit1.Text := CountryName;
     Button1.Caption := 'Изменить';
+    Button2.Visible := true;
     UcountryChange.Form3.Caption:= 'Изменить страну ('+ edit1.Text + ')';
   end;
-  Label1.Caption := str;
 end;
 
 end.

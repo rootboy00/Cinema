@@ -12,7 +12,11 @@ object Form20: TForm20
   Font.Style = []
   OldCreateOrder = False
   Position = poScreenCenter
+  OnResize = FormResize
   OnShow = FormShow
+  DesignSize = (
+    410
+    288)
   PixelsPerInch = 96
   TextHeight = 13
   object DBGrid1: TDBGrid
@@ -20,6 +24,7 @@ object Form20: TForm20
     Top = 8
     Width = 377
     Height = 225
+    Anchors = [akLeft, akTop, akRight, akBottom]
     DataSource = DataSource1
     TabOrder = 0
     TitleFont.Charset = DEFAULT_CHARSET
@@ -61,6 +66,7 @@ object Form20: TForm20
     Top = 250
     Width = 75
     Height = 25
+    Anchors = [akLeft, akBottom]
     Caption = #1044#1086#1073#1072#1074#1080#1090#1100
     TabOrder = 1
     OnClick = Button1Click
@@ -72,13 +78,11 @@ object Form20: TForm20
     CachedUpdates = False
     ParamCheck = True
     SQL.Strings = (
-      
-        'select wp.WPID,Film.Name as fname, people.Name as pname,Typepeop' +
-        'le.Name '
+      'select wp.WPID,f.Name as fname, p.Name as pname,tp.Name'
       'from WORKSPEOPLE as wp'
-      'inner join film on FILM.FID = WORKSPEOPLE.FID'
-      'inner join PEOPLE on PEOPLE.PID = WORKSPEOPLE.PID'
-      'inner join TYPEPEOPLE on TYPEPEOPLE.TPID = WORKSPEOPLE.TPID')
+      'inner join film as f on f.FID = wp.FID'
+      'inner join PEOPLE as p on p.PID = wp.PID'
+      'inner join TYPEPEOPLE as tp on tp.TPID = wp.TPID')
     Left = 272
     Top = 240
   end

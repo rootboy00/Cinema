@@ -38,6 +38,7 @@ type
     procedure Button3Click(Sender: TObject);
     procedure Button4Click(Sender: TObject);
     procedure FormCreate(Sender: TObject);
+    procedure refreshing;
   private
     { Private declarations }
   public
@@ -53,6 +54,20 @@ implementation
 
 uses umain, Ufilm;
 {$R *.dfm}
+
+
+
+
+procedure Tform7.refreshing;
+begin
+ ibtable1.Active:= false;
+ IbTable1.Active:= true;
+ ibtable2.Active:= false;
+ IbTable2.Active:= true;
+
+
+end;
+
 
 procedure TForm7.Button2Click(Sender: TObject);
 begin
@@ -125,12 +140,14 @@ end;
 
 procedure TForm7.FormCreate(Sender: TObject);
 begin
- IbTable1.Active:= true;
- IbTable2.Active:= true;
+  refreshing;
 end;
 
 Procedure TForm7.FormShow(Sender: TObject);
 begin
+
+  ibtable1.Active:= true;
+  ibtable2.Active:= true;
 
   Name.text := '';
   Description.text := '';

@@ -17,7 +17,8 @@ type
     procedure Button1Click(Sender: TObject);
     procedure refreshing;
     procedure DBGrid1CellClick(Column: TColumn);
-    procedure FormCreate(Sender: TObject);
+    procedure FormShow(Sender: TObject);
+    procedure FormResize(Sender: TObject);
   private
     { Private declarations }
   public
@@ -39,12 +40,19 @@ begin
   Utypepeoplechange.Form19.Show;
 end;
 
-procedure TForm18.FormCreate(Sender: TObject);
+procedure TForm18.FormResize(Sender: TObject);
+var MainWidth:integer;
 begin
-  refreshing;
+  MainWidth:= round( dbgrid1.Width / 100 ) ;
+  dbgrid1.Columns[1].Width:= MainWidth * 90;
 end;
 
-Procedure TForm18.refreshing;
+procedure TForm18.FormShow(Sender: TObject);
+begin
+ refreshing;
+end;
+
+procedure TForm18.refreshing;
 begin
   IBTable1.Active := false;
   IBTable1.Active := true;

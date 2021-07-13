@@ -1,12 +1,12 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <BorlandProject>
 	<Transactions>
-    <Transaction>1899.12.30 00:00:00.000.956,X:\Delphi\HomeWork-main\Uplacechange.dfm=X:\Delphi\HomeWork-main\Uplaceshow.dfm</Transaction>
-    <Transaction>1899.12.30 00:00:00.000.956,X:\Delphi\HomeWork-main\Uplacechange.pas=X:\Delphi\HomeWork-main\Uplaceshow.pas</Transaction>
-    <Transaction>1899.12.30 00:00:00.000.pas,D:\4ПР12\Komissarov\HomeWork-main\UFilmChange.pas=</Transaction>
-    <Transaction>1899.12.30 00:00:00.000.dfm,D:\4ПР12\Komissarov\HomeWork-main\UFilmChange.dfm=</Transaction>
-    <Transaction>2020.11.07 04:40:41.713,=X:\Delphi\HomeWork-main\Unit12.pas</Transaction>
-    <Transaction>2020.11.07 04:40:54.657,X:\Delphi\HomeWork-main\Uplacechange.dfm=X:\Delphi\HomeWork-main\Unit12.dfm</Transaction>
-    <Transaction>2020.11.07 04:40:54.657,X:\Delphi\HomeWork-main\Uplacechange.pas=X:\Delphi\HomeWork-main\Unit12.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.034,X:\Delphi\HomeWork\UFulmShop.pas=X:\Delphi\HomeWork\UFilmShop.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.034,X:\Delphi\HomeWork\UFulmShop.dfm=X:\Delphi\HomeWork\UFilmShop.dfm</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.977,X:\Delphi\HomeWork\UFilmShop.pas=X:\Delphi\HomeWork\UFilmShow.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.977,X:\Delphi\HomeWork\UFilmShop.dfm=X:\Delphi\HomeWork\UFilmShow.dfm</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.372,=X:\Delphi\HomeWork\Unit22.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.765,X:\Delphi\HomeWork\Unit22.pas=X:\Delphi\HomeWork\UFulmShop.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.765,X:\Delphi\HomeWork\Unit22.dfm=X:\Delphi\HomeWork\UFulmShop.dfm</Transaction>
   </Transactions>
 </BorlandProject>

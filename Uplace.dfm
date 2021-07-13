@@ -2,8 +2,8 @@ object Form6: TForm6
   Left = 0
   Top = 0
   Caption = #1047#1072#1083
-  ClientHeight = 299
-  ClientWidth = 635
+  ClientHeight = 268
+  ClientWidth = 470
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -12,6 +12,11 @@ object Form6: TForm6
   Font.Style = []
   OldCreateOrder = False
   Position = poScreenCenter
+  OnResize = FormResize
+  OnShow = FormShow
+  DesignSize = (
+    470
+    268)
   PixelsPerInch = 96
   TextHeight = 13
   object Button1: TButton
@@ -19,6 +24,7 @@ object Form6: TForm6
     Top = 232
     Width = 75
     Height = 25
+    Anchors = [akLeft, akBottom]
     Caption = #1044#1086#1073#1072#1074#1080#1090#1100
     TabOrder = 0
     OnClick = Button1Click
@@ -28,6 +34,7 @@ object Form6: TForm6
     Top = 8
     Width = 457
     Height = 202
+    Anchors = [akLeft, akTop, akRight, akBottom]
     DataSource = DataSource1
     TabOrder = 1
     TitleFont.Charset = DEFAULT_CHARSET
@@ -64,7 +71,6 @@ object Form6: TForm6
       'from hall')
     ParamCheck = True
     UniDirectional = False
-    Active = True
     Left = 544
     Top = 152
   end
